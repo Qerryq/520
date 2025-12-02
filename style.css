@@ -1,0 +1,173 @@
+/* 全局设置与手机适配基础 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', serif; /* 换成优雅的字体 */
+    background: linear-gradient(to bottom right, #ffafbd, #ffc3a0); /* 甜蜜的粉橘色渐变 */
+    overflow: hidden; 
+    height: 100vh;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    color: #333; /* 深灰色文字 */
+}
+
+/* 场景容器 - 3D效果核心 */
+.scene {
+    width: 90%; /* 手机适配：宽度限制在90% */
+    max-width: 450px; /* 电脑端最大宽度 */
+    height: 60vh;
+    min-height: 400px;
+    perspective: 1000px; /* 关键：3D透视 */
+}
+
+/* 卡片容器 - 负责翻转动画 */
+.card-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d; /* 关键：子元素置于3D空间 */
+    transition: transform 1.0s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* 弹性翻转动画 */
+}
+
+/* 翻转状态 */
+.card-container.flipped {
+    transform: rotateY(180deg);
+}
+
+/* 卡片公共样式 */
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* 关键：翻转时背面不可见 */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* 正面：信封样式 */
+.card-front {
+    background-color: #ffe5d9; /* 浅米色信封 */
+    cursor: pointer;
+    animation: pulse-shadow 2s infinite alternate; /* 呼吸光晕动画 */
+}
+
+.envelope {
+    padding: 20px;
+}
+
+.stamp {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 0.8em;
+    color: #888;
+}
+
+.heart {
+    font-size: 3em;
+    margin-bottom: 10px;
+    animation: heart-beat 1.5s infinite; /* 心跳动画 */
+}
+
+.click-hint {
+    color: #ff6f91;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+/* 反面：邀请函内容样式 */
+.card-back {
+    background-color: #fff; /* 白色卡片 */
+    transform: rotateY(180deg); /* 初始翻转180度，使其背面朝上 */
+}
+
+/* 内容布局，确保文字不溢出（手机适配） */
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    padding: 0 10px; /* 手机端横向留白 */
+}
+
+h1 {
+    color: #ff6f91; /* 少女粉 */
+    font-size: 1.5em; /* 手机适配：减小字体 */
+    margin-bottom: 5px;
+}
+
+p {
+    font-size: 0.9em; /* 手机适配：减小段落字体 */
+    line-height: 1.4;
+    margin: 5px 0;
+}
+
+.date-location {
+    font-weight: bold;
+    color: #ff914d; /* 烤鱼橙 */
+    margin: 10px 0;
+}
+
+h2 {
+    color: #333;
+    font-size: 1.1em;
+    margin: 15px 0 10px;
+}
+
+/* 按钮样式 */
+.actions button {
+    padding: 10px 15px; /* 手机适配：减小按钮大小 */
+    margin: 8px;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.95em;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+
+#yes-btn {
+    background-color: #ff6f91;
+    color: white;
+}
+
+#yes-btn:hover {
+    transform: scale(1.05);
+}
+
+#no-btn {
+    background-color: #f8f8f8;
+    color: #ff6f91;
+    border: 1px solid #ff6f91;
+}
+
+/* ---------------- 动画 ---------------- */
+
+@keyframes heart-beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes pulse-shadow {
+    from { box-shadow: 0 10px 30px rgba(255, 111, 145, 0.4); }
+    to { box-shadow: 0 10px 35px rgba(255, 111, 145, 0.7); }
+}
+
+/* 抖动动画 - 用于NO按钮 */
+.shake-once {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
