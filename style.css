@@ -1,0 +1,147 @@
+/* 全局设置 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Consolas', monospace; /* 换成科技感的等宽字体 */
+    color: #00ffff; /* 基础霓虹蓝色 */
+    overflow: hidden; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: radial-gradient(circle at center, #0a0a1a 0%, #000000 100%); /* 深色渐变背景 */
+}
+
+/* 整个场景容器 - 制造3D透视效果 */
+.scene {
+    /* 关键：给子元素一个透视深度 */
+    perspective: 1000px; 
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 动画：让整个场景微微晃动，更具生命感 */
+    animation: floating 8s ease-in-out infinite; 
+}
+
+/* 邀请函内容板 - 漂浮和倾斜 */
+.invite-card {
+    position: relative;
+    padding: 30px;
+    background: rgba(0, 50, 50, 0.2); /* 半透明深蓝绿 */
+    border-radius: 10px;
+    /* 关键：微微倾斜和抬升，制造漂浮感 */
+    transform: rotateX(10deg) rotateY(-5deg) translateZ(50px); 
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 
+        0 0 50px rgba(0, 255, 255, 0.5), /* 霓虹发光 */
+        0 20px 40px rgba(0, 0, 0, 0.7); /* 阴影深度 */
+    transition: transform 0.5s ease;
+}
+
+/* 霓虹发光边框 */
+.glow-border {
+    position: absolute;
+    top: -3px; left: -3px; right: -3px; bottom: -3px;
+    border: 3px solid #00ffff;
+    border-radius: 13px;
+    /* 动画发光 */
+    box-shadow: 0 0 15px #00ffff, inset 0 0 15px #00ffff;
+    opacity: 0.7;
+    pointer-events: none; /* 确保不影响点击 */
+    animation: neon-pulse 1.5s infinite alternate;
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* 图标和文字样式 */
+.icon {
+    font-size: 3em;
+    margin-bottom: 10px;
+    color: #ff00ff; /* 品红色高亮 */
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+h1 {
+    color: #00ff00; /* 绿色高亮标题 */
+    font-size: 1.8em;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+h2 {
+    color: #00ffff;
+    margin: 20px 0 10px;
+    font-size: 1.2em;
+}
+
+.date-location {
+    font-size: 1.0em;
+    color: #aaa;
+    margin: 15px 0 25px;
+    text-shadow: 0 0 2px #00ffff;
+}
+
+/* 按钮样式 */
+.actions button {
+    padding: 10px 20px;
+    margin: 15px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    background-color: #003333;
+    color: #00ffff;
+    border: 1px solid #00ffff;
+}
+
+#yes-btn {
+    background-color: #00ff00; /* 确认按钮：绿色 */
+    color: #000;
+    box-shadow: 0 0 15px #00ff00;
+    border: none;
+}
+
+#yes-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00;
+}
+
+/* 🌟 动画定义 🌟 */
+
+/* 整个场景的呼吸动画 */
+@keyframes floating {
+    0% { transform: translateY(0) rotate(0.1deg); }
+    50% { transform: translateY(-5px) rotate(-0.1deg); }
+    100% { transform: translateY(0) rotate(0.1deg); }
+}
+
+/* 霓虹边框的脉冲动画 */
+@keyframes neon-pulse {
+    from { opacity: 0.7; }
+    to { opacity: 1; }
+}
+/* 抖动动画 - 请将此段添加到 style.css 文件的最底部 */
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotateX(10deg) rotateY(-5deg) translateZ(50px); }
+  25% { transform: translate(-1px, -2px) rotateX(10deg) rotateY(-5deg) translateZ(50px); }
+  50% { transform: translate(-3px, 0px) rotateX(10deg) rotateY(-5deg) translateZ(50px); }
+  75% { transform: translate(1px, -1px) rotateX(10deg) rotateY(-5deg) translateZ(50px); }
+  100% { transform: translate(1px, 2px) rotateX(10deg) rotateY(-5deg) translateZ(50px); }
+}
+
+.shake {
+    /* 使用抖动动画，并保持基础的3D倾斜 */
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    transform: rotateX(10deg) rotateY(-5deg) translateZ(50px); 
+}
